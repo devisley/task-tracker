@@ -33,8 +33,7 @@ $this->title = $model->title;
             'begin_timestamp:datetime',
             'deadline_timestamp:datetime',
             'end_timestamp:datetime',
-            'created_at:datetime',
-            'updated_at:datetime',
+            'end_comment'
         ],
     ]) ?>
 

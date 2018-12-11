@@ -64,6 +64,7 @@ class Task extends \yii\db\ActiveRecord
             'begin_timestamp' => 'Дата постановки',
             'deadline_timestamp' => 'Срок завершения',
             'end_timestamp' => 'Дата завершения',
+            'end_comment' => 'Отчет исполнителя',
             'admin_id' => 'Admin ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -84,6 +85,10 @@ class Task extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getUserLogin() {
+        return $this->user->login;
     }
 
     public function beforeValidate()
@@ -125,11 +130,6 @@ class Task extends \yii\db\ActiveRecord
             $this->admin_id = Yii::$app->user->id;
             $this->team_id = Yii::$app->request->get('teamId');
         }
-
-//        if ($this->activity_end_timestamp) {
-//            $array = explode('-', $this->activity_end_timestamp);
-//            $this->activity_end_timestamp = mktime(0,0,0, (int)$array[1], (int)$array[2], (int)$array[0]);
-//        }
 
         return parent::beforeSave($insert);
     }

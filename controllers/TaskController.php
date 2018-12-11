@@ -75,7 +75,7 @@ class TaskController extends FrontendController
             Yii::$app->session->setFlash('warning', 'Задача уже отмечена как завершенная');
         } else {
             $model->end_timestamp = time();
-            $model->end_comment = Yii::$app->request->post('comment');
+            $model->end_comment = Yii::$app->request->post('endReport');
             $model->save();
         }
 

@@ -6,6 +6,7 @@ use Yii;
 use app\models\Task;
 use app\models\TaskSearch;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -139,12 +140,14 @@ class TaskController extends AdminController
      * Adds task.
      *
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionAddTask()
     {
         $model = new Task();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->text = ArrayHelper::getValue(Yii::$app->request->post($model->formName()), 'text');
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Задача добавлена! ');
             } else {
